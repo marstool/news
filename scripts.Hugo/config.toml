@@ -2,7 +2,7 @@ baseURL = "/"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
-title = " https://www.jjj123.com https://mp3s.jjj123.com"
+title = " 最新热点追踪 "
 theme = "hugo-theme-docdock"
 #themesdir = "../.."
 themesdir = "./themes"
