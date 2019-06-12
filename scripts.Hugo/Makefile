@@ -23,6 +23,11 @@ gd :
 
 ga :
 	nice -n 19 git add .
+rp:
+	@echo nice -n 19 git repack -a -d --window-memory 10m --max-pack-size 20m
+	nice -n 19 git config pack.windowMemory 10m
+	nice -n 19 git config pack.packSizeLimit 20m
+
 
 existHugo:=$(strip $(firstword $(wildcard scripts.Hugo/config.toml config.toml)))
 
@@ -36,9 +41,12 @@ ifdef    UseHugo
 rg:regen
 regen:
 	[ -f scripts.Hugo/config.toml ] && make regenX -C scripts.Hugo || make regenX 
+#	[ -d themes ] || echo "you should run : git clone https://marstool@github.com/marstool/themes.git"
+#	[ -d themes ] || git clone https://marstool@github.com/marstool/themes.git
 regenX:
-	[ -d themes ] || echo "you should run : git clone https://marstool@github.com/marstool/themes.git"
+	[ -d themes ] || rsync -a ../../themes/  themes/
 	cd themes && git pull
+	[ -L public ] || ln -s ../public/
 	rm -fr public/*
 	rm -fr resources/_gen/*
 	cp ../CNAME public/
@@ -63,14 +71,14 @@ server2X:
 	cd public/ && python -m SimpleHTTPServer 33221
 
 
-define help_text
+define help_textHU
 
 	rg -> regen   : regen all hugo
 	s  -> server  : run hugo   server to test local
 	s2 -> server2 : run python server to test local
 
 endef
-export help_text
+export help_textHU
 
 
 endif
@@ -113,8 +121,8 @@ sed01:
 		-e '/ by Florian Sesser/d' \
 		-e '/ by Kyosuke Tokoro/d' \
 		-e 's;<h1>Directory Tree</h1><p>;$(dynW01);g' \
+		-e 's;<title>Directory Tree</title>;<title>https://www.jjj123.com</title>;g' \
 		-e 's;<a href="\.">\.</a><br>;$(dynW02);g' \
-		-e 's;<title>Directory Tree</title>;www.jjj123.com;g' \
 		public/index.html
 
 s3: server3
@@ -122,18 +130,22 @@ server3:
 	[ -d public ] || (                pwd && python -m SimpleHTTPServer 33221 )
 	[ ! -d public ] || ( cd public && pwd && python -m SimpleHTTPServer 33221 )
 
-define help_text
+define help_textINDEX
 
 	tg --> treeGen -> gen the index.html by tree
 	s3 -> server3 : run python server to test local
 
 endef
-export help_text
+export help_textINDEX
 
 endif
 ############################################### UseTree  end
 ############################################### UseTree  end
 ############################################### UseTree  end
 
+
+help_text9=$(if $(help_textTV),$(help_textTV),$(if $(help_textHU),$(help_textHU),$(help_textINDEX)))
+export help_text9
+
 all:
-	@echo "$${help_text}"
+	@echo "$${help_text9}"
