@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#40000= hls-256         0  mp4   avc1.4d001e     mp4a.40.2 https://video.twimg.com/ext_tw_video/1159363891551277061/pu/pl/360x270/_YSP0kexcG71b3DX.m3u8
+#40001= hls-832         0  mp4   avc1.4d001f     mp4a.40.2 https://video.twimg.com/ext_tw_video/1159363891551277061/pu/pl/480x360/f90oJQkYeQB-yeFh.m3u8
+
+wget -c -O NA_1159363978952183809.info.json.jpg \
+    'https://pbs.twimg.com/ext_tw_video_thumb/1159363891551277061/pu/img/cl5hcIC1keZ0WYuq.jpg' 
+
+# Name : idx      size vo1_ao2_both3   ext   protocol
+# Vo   :   0         0 0                     'm3u8_native' 
+# Ao   :   0         0 0                     'm3u8_native' 
+# Both :   1         0 3                mp4  'm3u8_native' 
+# combine183838 31 : no vo , but both only, so , use both only : NA_1159363978952183809.info.json.bo.mp4 
+rm -f NA_1159363978952183809.info.json.bo.mp4 
+echo /usr/bin/ffmpeg -i 'https://video.twimg.com/ext_tw_video/1159363891551277061/pu/pl/480x360/f90oJQkYeQB-yeFh.m3u8' \
+    NA_1159363978952183809.info.json.bo.mp4 
+${HOME}/bin/youtube-dl --ignore-errors --restrict-filenames   \
+    -f hls-832 \
+    -o NA_1159363978952183809.info.json.bo.mp4  \
+    'https://twitter.com/RealEmperorPooh/status/1159363978952183809'
+
+rm -f NA_1159363978952183809.info.json.wav 
+/usr/bin/ffmpeg \
+    -i NA_1159363978952183809.info.json.bo.mp4         \
+    -vn -ac 1 -ar 22050 -b:a 25000        \
+    NA_1159363978952183809.info.json.wav 
+rm -f NA_1159363978952183809.info.json.mp3 
+rm -f NA_1159363978952183809.info.json.25k.mp4 
+echo lame       \
+    NA_1159363978952183809.info.json.wav       \
+    NA_1159363978952183809.info.json.mp3
+/usr/bin/ffmpeg \
+    -i NA_1159363978952183809.info.json.bo.mp4         \
+    -vn -ac 1 -ar 22050 -b:a 25000        \
+    NA_1159363978952183809.info.json.25k.mp4 
+rm -f NA_1159363978952183809.info.json.mp4 
+/usr/bin/ffmpeg \
+    -i NA_1159363978952183809.info.json.bo.mp4  \
+    -i NA_1159363978952183809.info.json.wav        \
+    -map 0:v:0 -map 1:a:0      \
+    -ac 1 -ar 22050 -b:a 25000   \
+    -c:v copy   \
+    NA_1159363978952183809.info.json.mp4 
+
+#10000= description:=<维尼大帝 on Twitter: "该名香港YouTuber在昨日的一次日本街访中🎙，问询路人对前日荷枪实弹的光头警长有何看法时，突遇战螂不请自来，操着南阳英语疯狂人身攻击🤦‍♀️  完整视频7分钟，3分55秒战螂出现 https://t.co/UMbwiyLqOG https://t.co/Z9dbLLDNHY"> 
+#10001= id:=<1159363978952183809> 
+#10002= webpage_url:=<https://twitter.com/RealEmperorPooh/status/1159363978952183809> 
+#10003= thumbnail:=<https://pbs.twimg.com/ext_tw_video_thumb/1159363891551277061/pu/img/cl5hcIC1keZ0WYuq.jpg> 
+#10004= fulltitle:=<维尼大帝 - 该名香港YouTuber在昨日的一次日本街访中🎙，问询路人对前日荷枪实弹的光头警长有何看法时，突遇战螂不请自来，操着南阳英语疯狂人身攻击🤦‍♀️  完整视频7分钟，3分55秒战螂出现> 
+#10005= format_id:=<hls-832> 
+#10006= upload_date:=<<nil>> 
+#10007= uploader:=<维尼大帝> 
+#10008= protocol:=<m3u8_native> 
+
