@@ -13,10 +13,14 @@ text="len 433087"
 >}}
 
 
-https://twitter.com/RealEmperorPooh/status/1159363978952183809
+{{< mydiv text="维尼大帝 on Twitter: _该名香港YouTuber在昨日的一次日本街访中🎙，问询路人对前日荷枪实弹的光头警长有何看法时，突遇战螂不请自来，操着南阳英语疯狂人身攻击🤦‍♀️  完整视频7分钟，3分55秒战螂出现 https://t.co/UMbwiyLqOG https://t.co/Z9dbLLDNHY_" >}}
+<br>
+
+{{< mydiv text="https://twitter.com/RealEmperorPooh/status/1159363978952183809" >}}
 
 
 <br>
+
 请大家传播时，不需要传播文件本身，<br>
 原因是：一旦传播过大东西（例如，图片，文件），<br>
 就会触发检查机制。<br>
@@ -26,4 +30,5 @@ https://twitter.com/RealEmperorPooh/status/1159363978952183809
 直接转发网址就可以了：<br>
 原因是，这是程序员网站，<br>
 共匪不敢封锁，墙内可以直接下载。
+
 
